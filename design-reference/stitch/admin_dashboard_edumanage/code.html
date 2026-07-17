@@ -1,0 +1,359 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>EduManage - Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#120a00",
+                        "on-surface": "#131c29",
+                        "surface": "#f8f9ff",
+                        "background": "#f8f9ff",
+                        "on-secondary-fixed": "#001c3b",
+                        "on-secondary-container": "#455c80",
+                        "secondary-fixed-dim": "#b0c8f0",
+                        "primary-fixed": "#d9e2ff",
+                        "surface-container-high": "#e0e9fa",
+                        "inverse-primary": "#b9c6ea",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#dae3f5",
+                        "outline-variant": "#c5c6ce",
+                        "on-tertiary-fixed-variant": "#5d4202",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "on-primary-fixed-variant": "#3a4664",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#ffdea5",
+                        "error-container": "#ffdad6",
+                        "secondary": "#485f83",
+                        "secondary-container": "#bed6ff",
+                        "outline": "#75777e",
+                        "on-primary-fixed": "#0d1b36",
+                        "surface-container-highest": "#dae3f5",
+                        "on-primary-container": "#7c89aa",
+                        "surface-tint": "#525e7d",
+                        "surface-dim": "#d1daec",
+                        "on-tertiary-container": "#a68441",
+                        "inverse-surface": "#28313e",
+                        "secondary-fixed": "#d5e3ff",
+                        "inverse-on-surface": "#ebf1ff",
+                        "primary": "#000a24",
+                        "tertiary-fixed-dim": "#e9c178",
+                        "on-surface-variant": "#45464d",
+                        "tertiary-container": "#2e1f00",
+                        "surface-container": "#e6eeff",
+                        "on-tertiary-fixed": "#271900",
+                        "surface-container-low": "#eff4ff",
+                        "primary-fixed-dim": "#b9c6ea",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#30476a",
+                        "on-background": "#131c29",
+                        "primary-container": "#14213d",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "academic-navy": "#14213D",
+                        "warm-ivory": "#F7F5F0",
+                        "soft-white": "#FCFCFB",
+                        "deep-navy": "#0A1224",
+                        "mist-gray": "#E1E5EA",
+                        "muted-gold": "#C6A15B"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "lg": "24px",
+                        "md": "16px",
+                        "gutter": "24px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "margin-desktop": "40px",
+                        "base": "4px",
+                        "2xl": "48px",
+                        "margin-mobile": "16px",
+                        "3xl": "64px",
+                        "stack-sm": "12px",
+                        "container-max": "1280px",
+                        "stack-lg": "48px",
+                        "stack-md": "24px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Manrope"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Manrope"],
+                        "body-sm": ["Inter"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "label-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Manrope"],
+                        "headline-sm": ["Manrope"],
+                        "numeral-lg": ["Manrope"],
+                        "display-sm": ["Manrope"],
+                        "title-lg": ["Manrope"],
+                        "caption": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "numeral-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "0", "fontWeight": "700" }],
+                        "display-sm": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "title-lg": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #F7F5F0; }
+    </style>
+</head>
+<body class="bg-warm-ivory text-on-surface font-body-md antialiased overflow-x-hidden">
+<!-- SideNavBar (Shared Component) -->
+<aside class="w-72 h-full fixed left-0 top-0 overflow-y-auto bg-academic-navy border-r border-mist-gray z-50 flex flex-col gap-2 py-6">
+<div class="px-6 mb-8">
+<h1 class="font-headline-md text-headline-md font-bold text-soft-white">EduManage</h1>
+<p class="font-caption text-caption text-surface-variant mt-1">Academic Excellence</p>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#24324A] text-soft-white font-bold text-label-md transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-muted-gold" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-surface-variant hover:text-soft-white transition-colors font-label-md text-label-md hover:bg-surface-variant/10 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+                Courses
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-surface-variant hover:text-soft-white transition-colors font-label-md text-label-md hover:bg-surface-variant/10 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                Students
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-surface-variant hover:text-soft-white transition-colors font-label-md text-label-md hover:bg-surface-variant/10 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+                Assignments
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-surface-variant hover:text-soft-white transition-colors font-label-md text-label-md hover:bg-surface-variant/10 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="event_available">event_available</span>
+                Attendance
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-surface-variant hover:text-soft-white transition-colors font-label-md text-label-md hover:bg-surface-variant/10 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                Grades
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-surface-variant hover:text-soft-white transition-colors font-label-md text-label-md hover:bg-surface-variant/10 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+                Materials
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-surface-variant hover:text-soft-white transition-colors font-label-md text-label-md hover:bg-surface-variant/10 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+                Reports
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-surface-variant hover:text-soft-white transition-colors font-label-md text-label-md hover:bg-surface-variant/10 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+</nav>
+</aside>
+<!-- TopAppBar (Shared Component) -->
+<header class="h-20 fixed top-0 right-0 left-72 z-40 bg-soft-white border-b border-mist-gray flex items-center justify-between px-8 w-auto">
+<div class="flex items-center gap-4 bg-warm-ivory border border-mist-gray rounded-full px-4 py-2 focus-within:ring-2 focus-within:ring-muted-gold w-96">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-on-surface font-body-md w-full placeholder-outline" placeholder="Search across institution..." type="text">
+</div>
+<div class="flex items-center gap-6">
+<button class="text-on-surface-variant hover:bg-warm-ivory transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-warm-ivory transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-academic-navy flex items-center justify-center text-soft-white font-label-md font-bold">
+                AD
+            </div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-72 pt-20 p-8 min-h-screen">
+<div class="max-w-container-max mx-auto">
+<div class="flex justify-between items-end mb-stack-md">
+<div>
+<h2 class="font-display-lg text-display-lg text-on-surface">Overview</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2">Institutional Health Summary for Fall 2024</p>
+</div>
+<button class="bg-academic-navy hover:bg-deep-navy text-soft-white px-6 py-2 rounded-lg font-label-md transition-colors shadow-sm">
+                    Export Report
+                </button>
+</div>
+<!-- Bento Grid: Key Metrics -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-stack-lg">
+<!-- Metric 1 -->
+<div class="bg-soft-white border border-mist-gray shadow-sm rounded-xl p-6">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-academic-navy text-3xl" data-icon="groups">groups</span>
+<span class="bg-secondary-container/50 text-on-secondary-container px-2 py-1 rounded-md font-label-md text-caption">+2.4%</span>
+</div>
+<p class="font-label-md text-label-md text-outline mb-1">Total Students</p>
+<h3 class="font-headline-md text-headline-md text-on-surface">14,285</h3>
+</div>
+<!-- Metric 2 -->
+<div class="bg-soft-white border border-mist-gray shadow-sm rounded-xl p-6">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-academic-navy text-3xl" data-icon="menu_book">menu_book</span>
+<span class="bg-surface-variant text-on-surface-variant px-2 py-1 rounded-md font-label-md text-caption">Term Active</span>
+</div>
+<p class="font-label-md text-label-md text-outline mb-1">Active Courses</p>
+<h3 class="font-headline-md text-headline-md text-on-surface">1,842</h3>
+</div>
+<!-- Metric 3 -->
+<div class="bg-soft-white border border-mist-gray shadow-sm rounded-xl p-6">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-academic-navy text-3xl" data-icon="payments">payments</span>
+<span class="bg-secondary-container/50 text-on-secondary-container px-2 py-1 rounded-md font-label-md text-caption">+5.1%</span>
+</div>
+<p class="font-label-md text-label-md text-outline mb-1">YTD Revenue</p>
+<h3 class="font-headline-md text-headline-md text-on-surface">$42.8M</h3>
+</div>
+<!-- Metric 4 -->
+<div class="bg-soft-white border border-mist-gray shadow-sm rounded-xl p-6 relative overflow-hidden">
+<div class="absolute inset-0 opacity-10 bg-[url('placeholder')] bg-cover bg-center" data-alt="A subtle, abstract network visualization pattern with soft glowing nodes and connecting lines. Minimalist design in shades of pale green and teal against a white background, representing system connectivity and health. High-key lighting, clean academic aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD_HZgvkIroHEplZgARVa52d5FAu4fKMSqpjMBCoAfSQbSN45Qp8bIn4IAcnxAf85My7ms9QrvUIZW6kXrSQzNsLssg_hmatvOpgTMXC41R8kC0oW0R4pKfznaBr6qJ0oVdshzAccyuw5jdhsXUQUwtF8DpogCvngJODJIl-vT-qy8cZKjMHovSxV-ZxvwzR4sygjgmfZgRkqT9u5ET1lH3fSiEACsWb-qHUTDJp35GQVigzLrOIYFAchS7OoRLmeIoiCDDq1Lv1HA')"></div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-academic-navy text-3xl" data-icon="dns">dns</span>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded-md font-label-md text-caption flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-academic-navy inline-block"></span> Operational
+                            </span>
+</div>
+<p class="font-label-md text-label-md text-outline mb-1">System Status</p>
+<h3 class="font-headline-md text-headline-md text-on-surface">99.9%</h3>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mb-stack-lg">
+<!-- Chart Area -->
+<div class="lg:col-span-2 bg-soft-white border border-mist-gray shadow-sm rounded-xl p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-title-lg text-title-lg text-on-surface">Enrollment Trends</h3>
+<div class="flex gap-4 font-label-md text-label-md">
+<div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-academic-navy"></span> Undergraduate</div>
+<div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-muted-gold"></span> Postgraduate</div>
+</div>
+</div>
+<!-- Simplified visual representation of a chart -->
+<div class="h-64 flex items-end justify-between gap-2 border-l border-b border-mist-gray pb-2 pl-2">
+<div class="w-1/12 flex flex-col gap-1 items-center justify-end h-full">
+<div class="w-full bg-muted-gold/80 rounded-t-sm" style="height: 30%"></div>
+<div class="w-full bg-academic-navy/80 rounded-t-sm" style="height: 50%"></div>
+<span class="text-caption font-caption text-outline mt-2 block">2019</span>
+</div>
+<div class="w-1/12 flex flex-col gap-1 items-center justify-end h-full">
+<div class="w-full bg-muted-gold/80 rounded-t-sm" style="height: 35%"></div>
+<div class="w-full bg-academic-navy/80 rounded-t-sm" style="height: 55%"></div>
+<span class="text-caption font-caption text-outline mt-2 block">2020</span>
+</div>
+<div class="w-1/12 flex flex-col gap-1 items-center justify-end h-full">
+<div class="w-full bg-muted-gold/80 rounded-t-sm" style="height: 40%"></div>
+<div class="w-full bg-academic-navy/80 rounded-t-sm" style="height: 60%"></div>
+<span class="text-caption font-caption text-outline mt-2 block">2021</span>
+</div>
+<div class="w-1/12 flex flex-col gap-1 items-center justify-end h-full">
+<div class="w-full bg-muted-gold/80 rounded-t-sm" style="height: 45%"></div>
+<div class="w-full bg-academic-navy/80 rounded-t-sm" style="height: 65%"></div>
+<span class="text-caption font-caption text-outline mt-2 block">2022</span>
+</div>
+<div class="w-1/12 flex flex-col gap-1 items-center justify-end h-full">
+<div class="w-full bg-muted-gold/80 rounded-t-sm" style="height: 42%"></div>
+<div class="w-full bg-academic-navy/80 rounded-t-sm" style="height: 70%"></div>
+<span class="text-caption font-caption text-outline mt-2 block">2023</span>
+</div>
+<div class="w-1/12 flex flex-col gap-1 items-center justify-end h-full">
+<div class="w-full bg-muted-gold/80 rounded-t-sm" style="height: 50%"></div>
+<div class="w-full bg-academic-navy/80 rounded-t-sm" style="height: 80%"></div>
+<span class="text-caption font-caption text-outline mt-2 block">2024</span>
+</div>
+</div>
+</div>
+<!-- Department List -->
+<div class="bg-soft-white border border-mist-gray shadow-sm rounded-xl p-6 flex flex-col">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-6 border-b border-mist-gray pb-4">Active Departments</h3>
+<div class="flex-1 overflow-y-auto pr-2 space-y-4">
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-lg bg-warm-ivory flex items-center justify-center text-academic-navy border border-mist-gray">
+<span class="material-symbols-outlined" data-icon="science">science</span>
+</div>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-on-surface">Computer Science</h4>
+<p class="font-caption text-caption text-on-surface-variant mt-1">Dr. E. Turing • 120 Courses</p>
+</div>
+<div class="text-right">
+<span class="font-label-md text-label-md text-on-surface">3,240</span>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-lg bg-warm-ivory flex items-center justify-center text-academic-navy border border-mist-gray">
+<span class="material-symbols-outlined" data-icon="calculate">calculate</span>
+</div>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-on-surface">Mathematics</h4>
+<p class="font-caption text-caption text-on-surface-variant mt-1">Dr. A. Lovelace • 85 Courses</p>
+</div>
+<div class="text-right">
+<span class="font-label-md text-label-md text-on-surface">2,100</span>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-lg bg-warm-ivory flex items-center justify-center text-academic-navy border border-mist-gray">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+</div>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-on-surface">Humanities</h4>
+<p class="font-caption text-caption text-on-surface-variant mt-1">Prof. V. Woolf • 150 Courses</p>
+</div>
+<div class="text-right">
+<span class="font-label-md text-label-md text-on-surface">4,050</span>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-lg bg-warm-ivory flex items-center justify-center text-academic-navy border border-mist-gray">
+<span class="material-symbols-outlined" data-icon="biotech">biotech</span>
+</div>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-on-surface">Biology</h4>
+<p class="font-caption text-caption text-on-surface-variant mt-1">Dr. R. Franklin • 90 Courses</p>
+</div>
+<div class="text-right">
+<span class="font-label-md text-label-md text-on-surface">1,890</span>
+</div>
+</div>
+</div>
+<button class="mt-4 w-full py-2 border border-mist-gray rounded-lg font-label-md text-academic-navy hover:bg-warm-ivory transition-colors">
+                        View All Departments
+                    </button>
+</div>
+</div>
+</div>
+</main>
+
+
+</body></html>

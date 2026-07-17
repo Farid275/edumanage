@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduManage - Sign In</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "tertiary": "#120a00",
+                "on-surface": "#131c29",
+                "surface": "#f8f9ff",
+                "background": "#f8f9ff",
+                "on-secondary-fixed": "#001c3b",
+                "on-secondary-container": "#455c80",
+                "secondary-fixed-dim": "#b0c8f0",
+                "primary-fixed": "#d9e2ff",
+                "surface-container-high": "#e0e9fa",
+                "inverse-primary": "#b9c6ea",
+                "surface-container-lowest": "#ffffff",
+                "surface-variant": "#dae3f5",
+                "outline-variant": "#c5c6ce",
+                "on-tertiary-fixed-variant": "#5d4202",
+                "on-tertiary": "#ffffff",
+                "surface-bright": "#f8f9ff",
+                "on-primary-fixed-variant": "#3a4664",
+                "on-error": "#ffffff",
+                "tertiary-fixed": "#ffdea5",
+                "error-container": "#ffdad6",
+                "secondary": "#485f83",
+                "secondary-container": "#bed6ff",
+                "outline": "#75777e",
+                "on-primary-fixed": "#0d1b36",
+                "surface-container-highest": "#dae3f5",
+                "on-primary-container": "#7c89aa",
+                "surface-tint": "#525e7d",
+                "surface-dim": "#d1daec",
+                "on-tertiary-container": "#a68441",
+                "inverse-surface": "#28313e",
+                "secondary-fixed": "#d5e3ff",
+                "inverse-on-surface": "#ebf1ff",
+                "primary": "#000a24",
+                "tertiary-fixed-dim": "#e9c178",
+                "on-surface-variant": "#45464d",
+                "tertiary-container": "#2e1f00",
+                "surface-container": "#e6eeff",
+                "on-tertiary-fixed": "#271900",
+                "surface-container-low": "#eff4ff",
+                "primary-fixed-dim": "#b9c6ea",
+                "error": "#ba1a1a",
+                "on-secondary": "#ffffff",
+                "on-secondary-fixed-variant": "#30476a",
+                "on-background": "#131c29",
+                "primary-container": "#14213d",
+                "on-primary": "#ffffff",
+                "on-error-container": "#93000a"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "xl": "32px",
+                "lg": "24px",
+                "md": "16px",
+                "gutter": "24px",
+                "xs": "4px",
+                "sm": "8px",
+                "margin-desktop": "40px",
+                "base": "4px",
+                "2xl": "48px",
+                "margin-mobile": "16px",
+                "3xl": "64px"
+        },
+        "fontFamily": {
+                "display-lg": [
+                        "Manrope"
+                ],
+                "label-md": [
+                        "Inter"
+                ],
+                "headline-md": [
+                        "Manrope"
+                ],
+                "body-sm": [
+                        "Inter"
+                ],
+                "headline-lg-mobile": [
+                        "Manrope"
+                ],
+                "label-lg": [
+                        "Inter"
+                ],
+                "body-lg": [
+                        "Inter"
+                ],
+                "body-md": [
+                        "Inter"
+                ],
+                "headline-lg": [
+                        "Manrope"
+                ],
+                "headline-sm": [
+                        "Manrope"
+                ],
+                "numeral-lg": [
+                        "Manrope"
+                ],
+                "display-sm": [
+                        "Manrope"
+                ]
+        },
+        "fontSize": {
+                "display-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-md": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-sm": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "label-lg": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "30px",
+                        {
+                                "lineHeight": "38px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-sm": [
+                        "20px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "numeral-lg": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "letterSpacing": "0",
+                                "fontWeight": "700"
+                        }
+                ],
+                "display-sm": [
+                        "36px",
+                        {
+                                "lineHeight": "44px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tinted-shadow {
+            box-shadow: 0 10px 40px -10px rgba(20, 33, 61, 0.08), 0 4px 6px -4px rgba(20, 33, 61, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-[#F7F5F0] min-h-screen flex items-center justify-center p-gutter selection:bg-[#C6A15B]/20 selection:text-primary-container">
+<main class="w-full max-w-md">
+<div class="bg-[#FCFCFB] rounded-xl tinted-shadow p-8 md:p-12 flex flex-col items-center border border-[#E1E5EA]">
+<div class="mb-lg flex justify-center w-full">
+<img alt="EduManage Logo" class="h-24 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfvu7JRfx6Zc5R1gKT2BmhWGfys67z7d7Tol_5MlCxOE8J0AaYCU_UqAD_mIrAh7v_ST-E2H6BcnDEOYY8M-tpl-kI7_R3zqwM_eIlWFo8mu24StikhyaC4Tz80fS8pBlTH3bl_XzsGEl7ZtvQgon90CIEJoow6hGGFRbbdPNidqu3IpoFD8Hp4xi06oYO2YTuFt0t9NChFaKr-BhXlXjV7rNg3Z7jMCzNyu8lu1qoRdBgkTH73nn9TvtR8rdHt9XpVUwOmfAZRvc"/>
+</div>
+<div class="text-center w-full mb-xl">
+<h1 class="font-headline-md text-headline-md text-[#14213D] mb-2">Welcome Back</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Sign in to access your academic dashboard.</p>
+</div>
+<form class="w-full flex flex-col gap-md" onsubmit="event.preventDefault();">
+<div class="flex flex-col gap-1">
+<label class="font-label-lg text-label-lg text-[#14213D]" for="email">Institutional Email</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">mail</span>
+<input class="w-full bg-[#FCFCFB] border border-[#E1E5EA] rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md text-[#14213D] placeholder:text-outline/50 focus:border-[#14213D] focus:ring-2 focus:ring-[#14213D]/20 outline-none transition-all duration-200" id="email" placeholder="scholar@university.edu" required="" type="email"/>
+</div>
+</div>
+<div class="flex flex-col gap-1 mt-2">
+<div class="flex justify-between items-center">
+<label class="font-label-lg text-label-lg text-[#14213D]" for="password">Password</label>
+<a class="font-label-md text-label-md text-[#14213D] hover:text-[#0d1b36] transition-colors" href="#">Forgot Password?</a>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">lock</span>
+<input class="w-full bg-[#FCFCFB] border border-[#E1E5EA] rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md text-[#14213D] placeholder:text-outline/50 focus:border-[#14213D] focus:ring-2 focus:ring-[#14213D]/20 outline-none transition-all duration-200" id="password" placeholder="••••••••" required="" type="password"/>
+</div>
+</div>
+<div class="mt-lg">
+<button class="w-full bg-[#14213D] text-[#FCFCFB] font-label-lg text-label-lg rounded-lg py-3.5 px-6 hover:bg-[#0d1b36] hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#14213D]/20 active:translate-y-0 active:shadow-sm transition-all duration-200 ease-in-out flex items-center justify-center gap-2" type="submit">
+                        Sign In
+                        <span class="material-symbols-outlined text-sm" style="font-size: 18px;">arrow_forward</span>
+</button>
+</div>
+</form>
+<div class="mt-xl w-full pt-md border-t border-[#E1E5EA] flex flex-col items-center gap-2">
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Don't have an account? <a class="font-label-md text-label-md text-[#14213D] hover:text-[#0d1b36] transition-colors" href="#">Request Access</a>
+</p>
+<p class="font-label-md text-label-md text-outline mt-2">
+                    Secure authentication portal © 2024 EduManage
+                </p>
+</div>
+</div>
+</main>
+</body></html>

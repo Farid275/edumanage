@@ -1,0 +1,340 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Assignments - EduManage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#120a00",
+                        "on-surface": "#131c29",
+                        "surface": "#f8f9ff",
+                        "background": "#f8f9ff",
+                        "on-secondary-fixed": "#001c3b",
+                        "on-secondary-container": "#455c80",
+                        "secondary-fixed-dim": "#b0c8f0",
+                        "primary-fixed": "#d9e2ff",
+                        "surface-container-high": "#e0e9fa",
+                        "inverse-primary": "#b9c6ea",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#dae3f5",
+                        "outline-variant": "#c5c6ce",
+                        "on-tertiary-fixed-variant": "#5d4202",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "on-primary-fixed-variant": "#3a4664",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#ffdea5",
+                        "error-container": "#ffdad6",
+                        "secondary": "#485f83",
+                        "secondary-container": "#bed6ff",
+                        "outline": "#75777e",
+                        "on-primary-fixed": "#0d1b36",
+                        "surface-container-highest": "#dae3f5",
+                        "on-primary-container": "#7c89aa",
+                        "surface-tint": "#525e7d",
+                        "surface-dim": "#d1daec",
+                        "on-tertiary-container": "#a68441",
+                        "inverse-surface": "#28313e",
+                        "secondary-fixed": "#d5e3ff",
+                        "inverse-on-surface": "#ebf1ff",
+                        "primary": "#000a24",
+                        "tertiary-fixed-dim": "#e9c178",
+                        "on-surface-variant": "#45464d",
+                        "tertiary-container": "#2e1f00",
+                        "surface-container": "#e6eeff",
+                        "on-tertiary-fixed": "#271900",
+                        "surface-container-low": "#eff4ff",
+                        "primary-fixed-dim": "#b9c6ea",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#30476a",
+                        "on-background": "#131c29",
+                        "primary-container": "#14213d",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        // Custom theme colors for this request
+                        "warm-ivory": "#F7F5F0",
+                        "midnight-navy": "#14213D",
+                        "deep-navy": "#0B1221",
+                        "soft-white": "#FCFCFB",
+                        "mist-gray": "#E1E5EA",
+                        "muted-gold": "#C6A15B",
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "stack-sm": "12px",
+                        "container-max": "1280px",
+                        "base": "8px",
+                        "margin-desktop": "40px",
+                        "stack-lg": "48px",
+                        "gutter": "24px",
+                        "stack-md": "24px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Manrope", "sans-serif"],
+                        "label-md": ["Inter", "sans-serif"],
+                        "headline-md": ["Manrope", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"],
+                        "headline-lg-mobile": ["Manrope", "sans-serif"],
+                        "label-lg": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "headline-lg": ["Manrope", "sans-serif"],
+                        "headline-sm": ["Manrope", "sans-serif"],
+                        "numeral-lg": ["Manrope", "sans-serif"],
+                        "display-sm": ["Manrope", "sans-serif"],
+                        "title-lg": ["Manrope", "sans-serif"],
+                        "caption": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "numeral-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "0", "fontWeight": "700" }],
+                        "display-sm": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "title-lg": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #F7F5F0; } /* Warm Ivory canvas */
+        .ambient-shadow { box-shadow: 0 4px 12px rgba(20, 33, 61, 0.05); }
+        .table-row-stripe:nth-child(even) { background-color: rgba(225, 229, 234, 0.2); } /* very light mist-gray */
+        .status-chip { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 9999px; font-size: 12px; font-weight: 600; letter-spacing: 0.01em; }
+        .status-needs-grading { background-color: rgba(186, 26, 26, 0.1); color: #93000a; }
+        .status-active { background-color: rgba(20, 33, 61, 0.1); color: #14213D; } 
+        .status-completed { background-color: rgba(198, 161, 91, 0.1); color: #C6A15B; }
+    </style>
+</head>
+<body class="font-body-md text-midnight-navy flex min-h-screen">
+<!-- SideNavBar -->
+<nav class="w-72 h-full fixed left-0 top-0 overflow-y-auto bg-midnight-navy border-r border-midnight-navy shadow-md z-50 flex flex-col gap-2 py-6">
+<div class="px-6 mb-8 flex items-center gap-4">
+<!-- Logo Placeholder via styling -->
+<div class="w-10 h-10 bg-primary-fixed rounded flex items-center justify-center text-midnight-navy font-bold text-xl">E</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-white">EduManage</h1>
+<p class="font-caption text-caption text-gray-300">Academic Excellence</p>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-1 px-4">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="">Courses</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="">Students</span>
+</a>
+<!-- Active State -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#24324A] text-white transition-all duration-200 ease-in-out font-label-md text-label-md font-semibold" href="#">
+<span class="material-symbols-outlined text-muted-gold" data-icon="assignment">assignment</span>
+<span class="text-muted-gold">Assignments</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="event_available">event_available</span>
+<span class="">Attendance</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="">Grades</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="">Materials</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="">Reports</span>
+</a>
+</div>
+<div class="px-4 mt-auto">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 ml-72 flex flex-col">
+<!-- TopAppBar -->
+<header class="h-20 fixed top-0 right-0 left-72 z-40 bg-warm-ivory border-b border-mist-gray flex items-center justify-between px-8">
+<div class="flex items-center gap-4 bg-soft-white rounded-full px-4 py-2 focus-within:ring-2 focus-within:ring-midnight-navy w-96 border border-mist-gray">
+<span class="material-symbols-outlined text-gray-500">search</span>
+<input class="bg-transparent border-none focus:ring-0 outline-none w-full font-body-md text-body-md text-midnight-navy placeholder:text-gray-500" placeholder="Search assignments, courses, students..." type="text">
+</div>
+<div class="flex items-center gap-6">
+<button class="text-gray-600 hover:bg-mist-gray transition-colors p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-gray-600 hover:bg-mist-gray transition-colors p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-mist-gray">
+<img alt="Administrator Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a university administrator in a modern office setting. The lighting is soft and bright, emphasizing a competent and approachable demeanor. The background is slightly blurred showing contemporary architecture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuUR2UNGdet5yfxSVHg7DAbu0mV_hD5VgQ3eVZxce6qRUXLLqBrTAIFmpELltysqfVM0V36_h8d3kNrh4Hl32zYbnrfsZLS3zXoVEq0innr-h8fcTFVQ-ug2qp3KXSZHciAiWVryFjTVmaRdOIsk1pBktezs10BuxFfKJ4AAPtI2Nj_VI5WccFuNSJtFijSWbmm_mSCzhMG5JIW5qXDoQGi5A48zR4xVC4M9FeLG7_6Rtr7P25Zfulmcs3IfykYnwKccc_566gcyM">
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="mt-20 p-margin-desktop max-w-container-max mx-auto w-full flex flex-col gap-stack-lg">
+<!-- Page Header -->
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-display-lg text-display-lg text-midnight-navy mb-2">Assignments Management</h2>
+<p class="font-body-lg text-body-lg text-gray-600">Track, grade, and manage course deliverables.</p>
+</div>
+<button class="bg-midnight-navy hover:bg-deep-navy text-white font-label-md text-label-md px-6 py-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-2">
+<span class="material-symbols-outlined">add</span>
+                New Assignment
+            </button>
+</div>
+<!-- Due Today Bento -->
+<section>
+<h3 class="font-title-lg text-title-lg text-midnight-navy mb-stack-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-muted-gold">warning</span>
+                Due Today
+            </h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="bg-soft-white rounded-lg p-6 ambient-shadow flex flex-col justify-between min-h-[160px] border border-mist-gray border-l-4 border-l-error">
+<div>
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md text-gray-600">CS301 • Data Structures</span>
+<span class="status-chip status-active">Active</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-midnight-navy text-xl">Midterm Project Phase 1</h4>
+</div>
+<div class="flex justify-between items-end mt-4">
+<div class="text-gray-500 font-caption text-caption">Due: 11:59 PM</div>
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-mist-gray border border-soft-white"></div>
+<div class="w-6 h-6 rounded-full bg-mist-gray border border-soft-white"></div>
+<div class="w-6 h-6 rounded-full bg-mist-gray border border-soft-white flex items-center justify-center text-[10px] text-midnight-navy">+42</div>
+</div>
+</div>
+</div>
+<div class="bg-soft-white rounded-lg p-6 ambient-shadow flex flex-col justify-between min-h-[160px] border border-mist-gray border-l-4 border-l-error">
+<div>
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md text-gray-600">ENG205 • Modern Lit</span>
+<span class="status-chip status-active">Active</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-midnight-navy text-xl">Essay: The Lost Generation</h4>
+</div>
+<div class="flex justify-between items-end mt-4">
+<div class="text-gray-500 font-caption text-caption">Due: 5:00 PM</div>
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-mist-gray border border-soft-white"></div>
+<div class="w-6 h-6 rounded-full bg-mist-gray border border-soft-white flex items-center justify-center text-[10px] text-midnight-navy">+18</div>
+</div>
+</div>
+</div>
+<!-- Placeholder for visually balanced grid, could be a summary stat card -->
+<div class="bg-soft-white rounded-lg p-6 flex flex-col items-center justify-center min-h-[160px] border border-mist-gray border-dashed">
+<span class="material-symbols-outlined text-midnight-navy text-4xl mb-2">fact_check</span>
+<span class="font-label-md text-label-md text-gray-600 text-center">2 Assignments Due Today<br>15 Submissions Pending Review</span>
+</div>
+</div>
+</section>
+<!-- All Assignments Table -->
+<section class="bg-soft-white rounded-xl ambient-shadow overflow-hidden border border-mist-gray">
+<div class="p-6 border-b border-mist-gray flex justify-between items-center bg-soft-white">
+<h3 class="font-title-lg text-title-lg text-midnight-navy">All Assignments</h3>
+<div class="flex gap-2">
+<button class="px-4 py-2 text-midnight-navy font-label-md text-label-md border border-mist-gray rounded hover:bg-mist-gray/50 transition-colors bg-white">Filter</button>
+<button class="px-4 py-2 text-midnight-navy font-label-md text-label-md border border-mist-gray rounded hover:bg-mist-gray/50 transition-colors bg-white">Export</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-mist-gray bg-white">
+<th class="p-4 font-label-md text-label-md text-gray-600 font-semibold">Title</th>
+<th class="p-4 font-label-md text-label-md text-gray-600 font-semibold">Course</th>
+<th class="p-4 font-label-md text-label-md text-gray-600 font-semibold">Due Date</th>
+<th class="p-4 font-label-md text-label-md text-gray-600 font-semibold">Status</th>
+<th class="p-4 font-label-md text-label-md text-gray-600 font-semibold text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md">
+<tr class="table-row-stripe border-b border-mist-gray hover:bg-mist-gray/30 transition-colors">
+<td class="p-4 font-medium text-midnight-navy">Research Methodology Critique</td>
+<td class="p-4 text-gray-600">SOC400</td>
+<td class="p-4 text-gray-600">Oct 12, 2023</td>
+<td class="p-4"><span class="status-chip status-needs-grading">Needs Grading (12)</span></td>
+<td class="p-4 text-right">
+<button class="text-midnight-navy hover:text-muted-gold font-label-md text-label-md font-semibold">Grade</button>
+</td>
+</tr>
+<tr class="table-row-stripe border-b border-mist-gray hover:bg-mist-gray/30 transition-colors">
+<td class="p-4 font-medium text-midnight-navy">Midterm Project Phase 1</td>
+<td class="p-4 text-gray-600">CS301</td>
+<td class="p-4 text-gray-600">Oct 14, 2023</td>
+<td class="p-4"><span class="status-chip status-active">Active</span></td>
+<td class="p-4 text-right">
+<button class="text-gray-600 hover:text-midnight-navy font-label-md text-label-md font-semibold">View</button>
+</td>
+</tr>
+<tr class="table-row-stripe border-b border-mist-gray hover:bg-mist-gray/30 transition-colors">
+<td class="p-4 font-medium text-midnight-navy">Essay: The Lost Generation</td>
+<td class="p-4 text-gray-600">ENG205</td>
+<td class="p-4 text-gray-600">Oct 14, 2023</td>
+<td class="p-4"><span class="status-chip status-active">Active</span></td>
+<td class="p-4 text-right">
+<button class="text-gray-600 hover:text-midnight-navy font-label-md text-label-md font-semibold">View</button>
+</td>
+</tr>
+<tr class="table-row-stripe border-b border-mist-gray hover:bg-mist-gray/30 transition-colors">
+<td class="p-4 font-medium text-midnight-navy">Weekly Quiz 4</td>
+<td class="p-4 text-gray-600">MATH101</td>
+<td class="p-4 text-gray-600">Oct 10, 2023</td>
+<td class="p-4"><span class="status-chip status-completed">Completed</span></td>
+<td class="p-4 text-right">
+<button class="text-gray-600 hover:text-midnight-navy font-label-md text-label-md font-semibold">Stats</button>
+</td>
+</tr>
+<tr class="table-row-stripe hover:bg-mist-gray/30 transition-colors">
+<td class="p-4 font-medium text-midnight-navy">Lab Report: Kinematics</td>
+<td class="p-4 text-gray-600">PHYS201</td>
+<td class="p-4 text-gray-600">Oct 08, 2023</td>
+<td class="p-4"><span class="status-chip status-completed">Completed</span></td>
+<td class="p-4 text-right">
+<button class="text-gray-600 hover:text-midnight-navy font-label-md text-label-md font-semibold">Stats</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+</div>
+
+
+</body></html>
