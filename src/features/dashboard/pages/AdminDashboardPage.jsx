@@ -19,7 +19,7 @@ export function AdminDashboardPage() {
       <PageHeader 
         title="Admin Dashboard" 
         description="Institutional overview and academic management."
-        action={<span className="text-sm font-medium text-[var(--color-on-surface-variant)]">{currentDate}</span>}
+        action={<span className="text-xs font-normal text-[var(--color-outline)]">{currentDate}</span>}
       />
 
       {/* Metrics Grid */}
@@ -36,21 +36,13 @@ export function AdminDashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         {/* Left Column: Academic Overview */}
-        <div className="lg:col-span-2 flex flex-col gap-8">
-          <DashboardSection className="mb-0">
+        <div className="lg:col-span-2">
+          <DashboardSection className="mb-0 h-full">
             <SectionHeader title="Academic Overview" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <ChartPlaceholder label="Attendance Overview" />
               <ChartPlaceholder label="Grade Distribution" />
-              <div className="md:col-span-2">
-                <ChartPlaceholder label="Course Activity" />
-              </div>
             </div>
-          </DashboardSection>
-
-          <DashboardSection className="mb-0">
-            <SectionHeader title="Recent Activity" />
-            <ActivityList />
           </DashboardSection>
         </div>
 
@@ -58,7 +50,7 @@ export function AdminDashboardPage() {
         <div className="lg:col-span-1">
           <DashboardSection className="mb-0 h-full flex flex-col">
             <SectionHeader title="Quick Actions" />
-            <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 flex-1 content-start">
+            <div className="grid grid-cols-2 lg:grid-cols-1 gap-3 flex-1 content-start">
               <QuickAction icon="person_add" label="Add Student" />
               <QuickAction icon="library_add" label="Add Course" />
               <QuickAction icon="group_add" label="Add Lecturer" />
@@ -68,6 +60,20 @@ export function AdminDashboardPage() {
         </div>
 
       </div>
+
+      <section className="mt-8 w-full min-w-0">
+        <DashboardSection className="mb-0">
+          <SectionHeader title="Course Activity" />
+          <ChartPlaceholder />
+        </DashboardSection>
+      </section>
+
+      <section className="mt-8 w-full min-w-0">
+        <DashboardSection className="mb-0">
+          <SectionHeader title="Recent Activity" />
+          <ActivityList />
+        </DashboardSection>
+      </section>
     </div>
   );
 }
