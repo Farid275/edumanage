@@ -25,11 +25,10 @@ export const router = createBrowserRouter([
     element: <Navigate to="/admin/dashboard" replace />
   },
   {
-    path: '/auth',
     element: <AuthLayout />,
     children: [
-      { path: 'login', element: <LoginPage /> },
-      { path: 'signup', element: <SignUpPage /> }
+      { path: '/login', element: <LoginPage /> },
+      { path: '/signup', element: <SignUpPage /> }
     ]
   },
   {
