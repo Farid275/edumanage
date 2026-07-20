@@ -35,11 +35,18 @@ export function CourseActivityTable({ data = [] }) {
           <tbody>
             {data.length === 0 && (
               <tr>
-                <td colSpan={columns.length}>
-                  <ReportEmptyState 
-                    message="No course activity report is available yet. Course activity will appear after academic data is recorded." 
-                    icon="table_chart" 
-                  />
+                <td colSpan={columns.length} className="p-0">
+                  <div className="w-full min-h-[160px] md:min-h-[190px] flex flex-col items-center justify-center gap-2 py-7 px-6 text-center box-border">
+                    <span className="material-symbols-outlined text-[22px] text-[var(--color-outline)] opacity-50 flex-none" aria-hidden="true">
+                      table_chart
+                    </span>
+                    <p className="m-0 text-sm font-medium text-[var(--color-on-surface)]">
+                      No course activity report is available yet.
+                    </p>
+                    <span className="max-w-[520px] text-xs text-[var(--color-outline)] leading-relaxed">
+                      Course activity will appear after academic data is recorded.
+                    </span>
+                  </div>
                 </td>
               </tr>
             )}

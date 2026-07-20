@@ -7,7 +7,7 @@ export function Input({ icon, className = '', wrapperClassName = '', ...props })
         </div>
       )}
       <input 
-        className={`form-input-academic w-full h-10 ${icon ? 'pl-9' : 'pl-4'} pr-4 rounded-lg bg-[var(--color-surface)] text-body-md text-[var(--color-on-surface)] placeholder-[var(--color-outline)] ${className}`}
+        className={`form-input-academic w-full min-h-[44px] ${icon ? 'pl-9' : 'pl-4'} pr-4 rounded-lg bg-[var(--color-surface)] text-body-md text-[var(--color-on-surface)] placeholder-[var(--color-outline)] ${className}`}
         {...props}
       />
     </div>

@@ -19,10 +19,9 @@ export function Sidebar({ role = 'admin', isOpen, onClose }) {
       <aside className={`flex flex-col bg-[var(--color-academic-navy)] text-white/70 font-label-md text-label-md w-64 h-full fixed left-0 top-0 overflow-y-auto z-50 transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 shadow-xl md:shadow-none`}>
         <div className="px-6 py-5 flex items-center justify-between border-b border-white/10 mb-2">
           <div className="flex items-center gap-3">
-            {/* Text fallback until logo is provided */}
-            <div className="w-8 h-8 rounded bg-[var(--color-muted-gold)] flex items-center justify-center text-[var(--color-academic-navy)] font-bold text-sm tracking-wider">EM</div>
-            <div>
-              <h1 className="font-headline-md text-headline-md font-bold text-white leading-tight tracking-tight">EduManage</h1>
+            <div className="w-8 h-8 rounded bg-[var(--color-muted-gold)] flex items-center justify-center text-[var(--color-academic-navy)] font-bold text-sm tracking-wider shrink-0">EM</div>
+            <div className="flex flex-col min-w-0">
+              <h1 className="font-headline-md text-headline-md font-bold text-white leading-tight tracking-tight truncate">EduManage</h1>
             </div>
           </div>
           <button className="md:hidden text-white/70 hover:text-white" onClick={onClose}>
