@@ -41,10 +41,10 @@ export function LoginPage() {
 
           <div className="auth-options text-sm">
             <label className="flex items-center gap-2 cursor-pointer text-[var(--color-on-surface-variant)] group">
-              <input type="checkbox" className="rounded border-[var(--color-outline-variant)] text-[var(--color-academic-navy)] focus:ring-[var(--color-academic-navy)]" />
+              <input type="checkbox" className="rounded border-[var(--color-outline-variant)] text-[var(--color-primary)] focus:ring-[var(--color-primary)]" />
               <span className="group-hover:text-[var(--color-on-surface)] transition-colors">Remember me</span>
             </label>
-            <a href="#" className="font-medium text-[var(--color-academic-navy)] hover:underline text-left sm:text-right">
+            <a href="#" className="font-medium text-[var(--color-primary)] hover:underline text-left sm:text-right">
               Forgot password?
             </a>
           </div>
@@ -58,7 +58,7 @@ export function LoginPage() {
           <div className="text-center mt-4 w-full">
             <p className="text-sm text-[var(--color-on-surface-variant)] mb-3">
               Are you a new student?{' '}
-              <Link to="/signup" className="font-medium text-[var(--color-academic-navy)] hover:underline">
+              <Link to="/signup" className="font-medium text-[var(--color-primary)] hover:underline">
                 Register here
               </Link>
             </p>

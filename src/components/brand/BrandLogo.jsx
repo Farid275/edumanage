@@ -23,7 +23,7 @@ export function BrandLogo({
     large: 'text-[28px]'
   };
 
-  const titleColor = theme === 'dark' ? 'text-white' : 'text-[var(--color-academic-navy)]';
+  const titleColor = theme === 'dark' ? 'text-white' : 'text-[var(--color-on-surface)]';
   const subtitleColor = theme === 'dark' ? 'text-white/70' : 'text-[var(--color-on-surface-variant)]';
 
   return (

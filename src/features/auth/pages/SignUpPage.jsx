@@ -61,7 +61,7 @@ export function SignUpPage() {
 
           <div className="auth-notice bg-[var(--color-surface-container)] rounded-md border border-[var(--color-outline-variant)]/50 mt-2 w-full">
             <p className="text-xs text-[var(--color-on-surface-variant)] flex items-start gap-2">
-              <span className="material-symbols-outlined text-[16px] text-[var(--color-muted-gold)]">info</span>
+              <span className="material-symbols-outlined text-[16px] text-[var(--color-primary)]">info</span>
               <span>Self-registration is strictly for Student accounts. Other roles will not be assigned.</span>
             </p>
           </div>
@@ -75,7 +75,7 @@ export function SignUpPage() {
           <div className="text-center mt-4 w-full">
             <p className="text-sm text-[var(--color-on-surface-variant)]">
               Already have an account?{' '}
-              <Link to="/login" className="font-medium text-[var(--color-academic-navy)] hover:underline">
+              <Link to="/login" className="font-medium text-[var(--color-primary)] hover:underline">
                 Sign in
               </Link>
             </p>

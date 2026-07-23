@@ -1,59 +1,36 @@
 @theme {
-  --color-tertiary: #120a00;
-  --color-on-surface: #131c29;
-  --color-surface: #ffffff;
-  --color-background: #F1F5F9;
-  --color-on-secondary-fixed: #001c3b;
-  --color-on-secondary-container: #455c80;
-  --color-secondary-fixed-dim: #b0c8f0;
-  --color-primary-fixed: #d9e2ff;
-  --color-surface-container-high: #e0e9fa;
-  --color-inverse-primary: #b9c6ea;
-  --color-surface-container-lowest: #ffffff;
-  --color-surface-variant: #dae3f5;
-  --color-outline-variant: #CBD5E1;
-  --color-on-tertiary-fixed-variant: #5d4202;
-  --color-on-tertiary: #ffffff;
-  --color-surface-bright: #f8f9ff;
-  --color-on-primary-fixed-variant: #3a4664;
-  --color-on-error: #ffffff;
-  --color-tertiary-fixed: #ffdea5;
-  --color-error-container: #ffdad6;
-  --color-secondary: #485f83;
-  --color-secondary-container: #bed6ff;
-  --color-outline: #75777e;
-  --color-on-primary-fixed: #0d1b36;
-  --color-surface-container-highest: #dae3f5;
-  --color-on-primary-container: #7c89aa;
-  --color-surface-tint: #525e7d;
-  --color-surface-dim: #d1daec;
-  --color-on-tertiary-container: #a68441;
-  --color-inverse-surface: #28313e;
-  --color-secondary-fixed: #d5e3ff;
-  --color-inverse-on-surface: #ebf1ff;
-  --color-primary: #14213D;
-  --color-tertiary-fixed-dim: #e9c178;
-  --color-on-surface-variant: #45464d;
-  --color-tertiary-container: #2e1f00;
-  --color-surface-container: #e6eeff;
-  --color-on-tertiary-fixed: #271900;
-  --color-surface-container-low: #eff4ff;
-  --color-primary-fixed-dim: #b9c6ea;
-  --color-error: #ba1a1a;
-  --color-on-secondary: #ffffff;
-  --color-on-secondary-fixed-variant: #30476a;
-  --color-on-background: #131c29;
-  --color-primary-container: #14213d;
-  --color-on-primary: #ffffff;
-  --color-on-error-container: #93000a;
+  --color-background: #F3F6FA;
+  --color-surface: #FFFFFF;
+  --color-surface-container-lowest: #FFFFFF;
+  --color-surface-container-low: #EAF0F6;
+  --color-surface-container: #EAF0F6;
+  --color-surface-container-high: #DCE3EC;
+  --color-surface-container-highest: #D6DEE8;
   
-  /* Brand Specific */
-  --color-academic-navy: #14213D;
-  --color-warm-ivory: #F1F5F9;
-  --color-soft-white: #ffffff;
-  --color-deep-navy: #0A1224;
-  --color-mist-gray: #CBD5E1;
-  --color-muted-gold: #C6A15B;
+  --color-on-surface: #182230;
+  --color-on-surface-variant: #667085;
+  
+  --color-outline: #7A8495;
+  --color-outline-variant: #D6DEE8;
+  --color-divider: #DCE3EC;
+  
+  --color-primary: #365D93;
+  --color-primary-hover: #294A77;
+  --color-focus-ring: #AAB8E8;
+  
+  --color-sidebar: #15213A;
+  --color-sidebar-hover: #1E2D4B;
+  --color-sidebar-active: #283957;
+  --color-sidebar-active-text: #FFFFFF;
+  --color-sidebar-active-icon: #AAB8E8;
+  --color-sidebar-text: #B7C0D0;
+
+  --color-success: #397A68;
+  --color-warning: #B7792B;
+  --color-error: #B94A52;
+  --color-on-error: #FFFFFF;
+  
+  /* Brand Specific Legacy Fallbacks Removed */
 
   --radius-sm: 0.25rem;
   --radius-md: 0.75rem;

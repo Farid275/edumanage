@@ -23,7 +23,7 @@ export function Topbar({ onMenuClick }) {
         <div className="h-6 w-px bg-[var(--color-outline-variant)] mx-2 hidden sm:block"></div>
         <button className="flex items-center gap-2 p-1 pl-2 pr-1 rounded-full border border-transparent hover:bg-[var(--color-surface-container-high)] transition-all">
           <span className="hidden sm:block text-sm font-medium text-[var(--color-on-surface)] mr-1">Admin User</span>
-          <div className="w-8 h-8 rounded-full bg-[var(--color-academic-navy)] text-[var(--color-soft-white)] flex items-center justify-center font-label-sm font-bold text-xs shadow-sm">
+          <div className="w-8 h-8 rounded-full bg-[var(--color-sidebar)] text-[var(--color-surface)] flex items-center justify-center font-label-sm font-bold text-xs shadow-sm">
             AU
           </div>
         </button>
