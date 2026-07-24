@@ -1,4 +1,8 @@
-export function Topbar({ onMenuClick }) {
+export function Topbar({ onMenuClick, profile, onLogout }) {
+  const initials = profile?.full_name 
+    ? profile.full_name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()
+    : 'U';
+    
   return (
     <header className="bg-[var(--color-surface)]/95 backdrop-blur-md text-[var(--color-on-surface)] h-16 fixed top-0 right-0 left-0 md:left-64 z-30 border-b border-[var(--color-outline-variant)] flex items-center justify-between px-4 md:px-8 transition-all duration-300 ease-in-out">
       <div className="flex items-center gap-4">
@@ -21,12 +25,24 @@ export function Topbar({ onMenuClick }) {
           <span className="material-symbols-outlined text-[22px]">help</span>
         </button>
         <div className="h-6 w-px bg-[var(--color-outline-variant)] mx-2 hidden sm:block"></div>
-        <button className="flex items-center gap-2 p-1 pl-2 pr-1 rounded-full border border-transparent hover:bg-[var(--color-surface-container-high)] transition-all">
-          <span className="hidden sm:block text-sm font-medium text-[var(--color-on-surface)] mr-1">Admin User</span>
-          <div className="w-8 h-8 rounded-full bg-[var(--color-sidebar)] text-[var(--color-surface)] flex items-center justify-center font-label-sm font-bold text-xs shadow-sm">
-            AU
-          </div>
-        </button>
+        <div className="flex items-center gap-2">
+          <button className="flex items-center gap-2 p-1 pl-2 pr-1 rounded-full border border-transparent hover:bg-[var(--color-surface-container-high)] transition-all">
+            <span className="hidden sm:block text-sm font-medium text-[var(--color-on-surface)] mr-1">
+              {profile?.full_name || 'User'}
+            </span>
+            <div className="w-8 h-8 rounded-full bg-[var(--color-sidebar)] text-[var(--color-surface)] flex items-center justify-center font-label-sm font-bold text-xs shadow-sm">
+              {initials}
+            </div>
+          </button>
+          <button 
+            onClick={onLogout}
+            title="Log out"
+            aria-label="Sign out"
+            className="p-2 ml-1 text-[var(--color-on-surface-variant)] rounded-full hover:bg-[var(--color-error)] hover:text-white transition-colors flex items-center justify-center"
+          >
+            <span className="material-symbols-outlined text-[20px]">logout</span>
+          </button>
+        </div>
       </div>
     </header>
   );

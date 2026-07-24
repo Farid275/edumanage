@@ -1,6 +1,9 @@
 import { createBrowserRouter, Navigate } from 'react-router';
 import { AppLayout } from '../layouts/AppLayout';
 import { AuthLayout } from '../layouts/AuthLayout';
+import { ProtectedRoute } from '../features/auth/components/ProtectedRoute';
+import { RoleRoute } from '../features/auth/components/RoleRoute';
+import { PublicOnlyRoute } from '../features/auth/components/PublicOnlyRoute';
 
 import { LoginPage } from '../features/auth/pages/LoginPage';
 import { SignUpPage } from '../features/auth/pages/SignUpPage';
@@ -22,31 +25,71 @@ import { SettingsPage } from '../features/settings/pages/SettingsPage';
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Navigate to="/admin/dashboard" replace />
+    element: <Navigate to="/login" replace />
   },
   {
-    element: <AuthLayout />,
+    element: <PublicOnlyRoute />,
     children: [
-      { path: '/login', element: <LoginPage /> },
-      { path: '/signup', element: <SignUpPage /> }
+      {
+        element: <AuthLayout />,
+        children: [
+          { path: '/login', element: <LoginPage /> },
+          { path: '/signup', element: <SignUpPage /> }
+        ]
+      }
     ]
   },
   {
     path: '/',
-    element: <AppLayout />,
+    element: <ProtectedRoute />,
     children: [
-      { path: 'admin/dashboard', element: <AdminDashboardPage /> },
-      { path: 'lecturer/dashboard', element: <LecturerDashboardPage /> },
-      { path: 'student/dashboard', element: <StudentDashboardPage /> },
-      { path: 'courses', element: <CoursesPage /> },
-      { path: 'students', element: <StudentsPage /> },
-      { path: 'lecturers', element: <LecturersPage /> },
-      { path: 'assignments', element: <AssignmentsPage /> },
-      { path: 'attendance', element: <AttendancePage /> },
-      { path: 'grades', element: <GradesPage /> },
-      { path: 'materials', element: <MaterialsPage /> },
-      { path: 'reports', element: <ReportsPage /> },
-      { path: 'settings', element: <SettingsPage /> }
+      {
+        element: <AppLayout />,
+        children: [
+          {
+            element: <RoleRoute allowedRoles={['admin']} />,
+            children: [
+              { path: 'admin/dashboard', element: <AdminDashboardPage /> },
+              { path: 'lecturers', element: <LecturersPage /> }
+            ]
+          },
+          {
+            element: <RoleRoute allowedRoles={['lecturer']} />,
+            children: [
+              { path: 'lecturer/dashboard', element: <LecturerDashboardPage /> }
+            ]
+          },
+          {
+            element: <RoleRoute allowedRoles={['student']} />,
+            children: [
+              { path: 'student/dashboard', element: <StudentDashboardPage /> }
+            ]
+          },
+          {
+            element: <RoleRoute allowedRoles={['admin', 'lecturer']} />,
+            children: [
+              { path: 'students', element: <StudentsPage /> },
+              { path: 'reports', element: <ReportsPage /> }
+            ]
+          },
+          {
+            element: <RoleRoute allowedRoles={['lecturer', 'student']} />,
+            children: [
+              { path: 'assignments', element: <AssignmentsPage /> },
+              { path: 'attendance', element: <AttendancePage /> },
+              { path: 'grades', element: <GradesPage /> },
+              { path: 'materials', element: <MaterialsPage /> }
+            ]
+          },
+          {
+            element: <RoleRoute allowedRoles={['admin', 'lecturer', 'student']} />,
+            children: [
+              { path: 'courses', element: <CoursesPage /> },
+              { path: 'settings', element: <SettingsPage /> }
+            ]
+          }
+        ]
+      }
     ]
   }
 ]);
