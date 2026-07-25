@@ -4,7 +4,7 @@ import { Button } from '../../../components/ui/Button';
 import { CourseSummary } from '../components/CourseSummary';
 import { CourseToolbar } from '../components/CourseToolbar';
 import { CoursesTable } from '../components/CoursesTable';
-import { CourseForm } from '../components/CourseForm';
+import { CourseFormModal } from '../components/CourseFormModal';
 import { DeleteCourseDialog } from '../components/DeleteCourseDialog';
 import { useCourses } from '../hooks/useCourses';
 import { useAuth } from '../../auth/context/AuthContext';
@@ -12,7 +12,7 @@ import { LoadingState } from '../../../components/feedback/LoadingState';
 import { ErrorState } from '../../../components/feedback/ErrorState';
 
 export function CoursesPage() {
-  const { role } = useAuth();
+  const { role, user } = useAuth();
   
   const {
     courses,
@@ -32,31 +32,51 @@ export function CoursesPage() {
   } = useCourses();
 
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [formMode, setFormMode] = useState('create');
   const [courseToEdit, setCourseToEdit] = useState(null);
   const [courseToDelete, setCourseToDelete] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const [formError, setFormError] = useState('');
 
   const canCreate = role === 'admin' || role === 'lecturer';
 
   const openCreateForm = () => {
+    setFormMode('create');
     setCourseToEdit(null);
+    setFormError('');
     setIsFormOpen(true);
   };
 
   const openEditForm = (course) => {
+    setFormMode('edit');
     setCourseToEdit(course);
+    setFormError('');
     setIsFormOpen(true);
   };
 
   const closeForm = () => {
     setIsFormOpen(false);
     setCourseToEdit(null);
+    setFormError('');
   };
 
   const onSaveForm = async (payload) => {
-    if (courseToEdit) {
-      return await handleUpdate(courseToEdit.id, payload);
+    setIsSaving(true);
+    setFormError('');
+    let res;
+
+    if (formMode === 'edit' && courseToEdit) {
+      res = await handleUpdate(courseToEdit.id, payload);
     } else {
-      return await handleCreate(payload);
+      res = await handleCreate(payload);
+    }
+
+    setIsSaving(false);
+
+    if (res?.error) {
+      setFormError(res.error);
+    } else {
+      closeForm();
     }
   };
 
@@ -119,14 +139,18 @@ export function CoursesPage() {
         onDelete={(course) => setCourseToDelete(course)}
       />
 
-      {isFormOpen && (
-        <CourseForm 
-          course={courseToEdit}
-          lecturers={lecturers}
-          onClose={closeForm}
-          onSave={onSaveForm}
-        />
-      )}
+      <CourseFormModal 
+        isOpen={isFormOpen}
+        mode={formMode}
+        course={courseToEdit}
+        lecturers={lecturers}
+        currentRole={role}
+        currentUserId={user?.id}
+        isSaving={isSaving}
+        error={formError}
+        onClose={closeForm}
+        onSubmit={onSaveForm}
+      />
 
       {courseToDelete && (
         <DeleteCourseDialog

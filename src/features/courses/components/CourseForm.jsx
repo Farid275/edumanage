@@ -2,58 +2,63 @@ import { useState, useEffect } from 'react';
 import { Button } from '../../../components/ui/Button';
 import { Input } from '../../../components/ui/Input';
 import { Select } from '../../../components/ui/Select';
-import { useAuth } from '../../auth/context/AuthContext';
 
-export function CourseForm({ course = null, lecturers = [], onClose, onSave }) {
-  const { role, user } = useAuth();
-  
+export function CourseForm({ mode = 'create', course = null, lecturers = [], currentRole, currentUserId, isSaving, error: externalError, onSubmit, onCancel }) {
   const [formData, setFormData] = useState({
-    course_code: '',
-    course_name: '',
+    courseCode: '',
+    courseName: '',
     description: '',
-    credits: 3,
+    credits: '3',
     semester: '',
     status: 'active',
-    lecturer_id: ''
+    lecturerId: ''
   });
 
-  const [isSaving, setIsSaving] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
+  const [localError, setLocalError] = useState('');
 
   useEffect(() => {
-    if (course) {
+    if (mode === 'edit' && course) {
       setFormData({
-        course_code: course.course_code || '',
-        course_name: course.course_name || '',
+        courseCode: course.course_code || '',
+        courseName: course.course_name || '',
         description: course.description || '',
-        credits: course.credits || 3,
+        credits: course.credits?.toString() || '3',
         semester: course.semester || '',
         status: course.status || 'active',
-        lecturer_id: course.lecturer_id || ''
+        lecturerId: course.lecturer_id || ''
       });
-    } else if (role === 'lecturer') {
-      // For lecturers, default their own ID
-      setFormData(prev => ({ ...prev, lecturer_id: user.id }));
+    } else if (mode === 'create') {
+      setFormData({
+        courseCode: '',
+        courseName: '',
+        description: '',
+        credits: '3',
+        semester: '',
+        status: 'active',
+        lecturerId: currentRole === 'lecturer' ? currentUserId : ''
+      });
     }
-  }, [course, role, user.id]);
+  }, [mode, course, currentRole, currentUserId]);
 
   const handleChange = (e) => {
-    const { id, value } = e.target;
+    const { id, name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [id]: id === 'credits' ? (value === '' ? '' : Number(value)) : value
+      [name || id]: value
     }));
   };
 
-  const handleSelectChange = (id, value) => {
-    setFormData(prev => ({ ...prev, [id]: value }));
+  const handleSelectChange = (e) => {
+    const { id, name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name || id]: value }));
   };
 
   const validate = () => {
-    if (!formData.course_code.trim()) return 'Course code is required.';
-    if (!formData.course_name.trim()) return 'Course name is required.';
+    if (!formData.courseCode.trim()) return 'Course code is required.';
+    if (!formData.courseName.trim()) return 'Course name is required.';
     if (!formData.semester.trim()) return 'Semester is required.';
-    if (formData.credits < 1 || formData.credits > 12) return 'Credits must be between 1 and 12.';
+    const creditsNum = Number(formData.credits);
+    if (isNaN(creditsNum) || creditsNum < 1 || creditsNum > 12) return 'Credits must be between 1 and 12.';
     return null;
   };
 
@@ -61,184 +66,182 @@ export function CourseForm({ course = null, lecturers = [], onClose, onSave }) {
     e.preventDefault();
     if (isSaving) return;
 
-    setErrorMsg('');
+    setLocalError('');
     const validationError = validate();
     if (validationError) {
-      setErrorMsg(validationError);
+      setLocalError(validationError);
       return;
     }
 
-    setIsSaving(true);
-    const { error } = await onSave(formData);
-    
-    if (error) {
-      setErrorMsg(error);
-      setIsSaving(false);
-    } else {
-      setIsSaving(false);
-      onClose();
+    const payload = {
+      course_code: formData.courseCode.trim().toUpperCase(),
+      course_name: formData.courseName.trim(),
+      description: formData.description.trim(),
+      credits: Number(formData.credits),
+      semester: formData.semester.trim(),
+      status: formData.status,
+      lecturer_id: currentRole === 'lecturer' ? currentUserId : (formData.lecturerId || null),
+    };
+
+    if (mode === 'create') {
+      payload.created_by = currentUserId;
     }
+
+    await onSubmit(payload);
   };
 
-  const isEditing = !!course;
-  const isLecturer = role === 'lecturer';
-
-  const semesterOptions = [
-    { value: '', label: 'Select Semester' },
-    { value: 'fall-2025', label: 'Fall 2025' },
-    { value: 'spring-2025', label: 'Spring 2025' }
-  ];
-
-  const statusOptions = [
-    { value: 'active', label: 'Active' },
-    { value: 'inactive', label: 'Inactive' },
-    { value: 'archived', label: 'Archived' }
-  ];
-
-  const lecturerOptions = [
-    { value: '', label: 'Unassigned' },
-    ...lecturers.map(l => ({ value: l.id, label: l.full_name }))
-  ];
+  const errorMsg = localError || externalError;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-      <div className="bg-[var(--color-surface-container-lowest)] rounded-xl ambient-shadow w-full max-w-lg max-h-[90vh] overflow-y-auto overflow-x-hidden animate-fade-in-up">
-        <div className="p-6 border-b border-[var(--color-outline-variant)] flex items-center justify-between sticky top-0 bg-[var(--color-surface-container-lowest)] z-10">
-          <h2 className="font-title-lg text-[var(--color-on-surface)]">
-            {isEditing ? 'Edit Course' : 'Create Course'}
-          </h2>
-          <button 
-            type="button"
-            onClick={onClose}
-            className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors p-2"
-          >
-            <span className="material-symbols-outlined text-[20px]">close</span>
-          </button>
+    <form onSubmit={handleSubmit} className="w-full min-w-0">
+      {errorMsg && (
+        <div className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm flex items-start gap-3 w-full min-w-0 box-border">
+          <span className="material-symbols-outlined text-[20px] shrink-0">error</span>
+          <p>{errorMsg}</p>
+        </div>
+      )}
+
+      <div className="grid w-full min-w-0 grid-cols-1 gap-5 md:grid-cols-2 box-border">
+        <div className="space-y-1.5 w-full min-w-0 box-border">
+          <label htmlFor="courseCode" className="font-label-md text-sm font-medium text-[var(--color-on-surface)]">
+            Course Code <span className="text-red-500">*</span>
+          </label>
+          <Input 
+            id="courseCode"
+            name="courseCode"
+            placeholder="CS101"
+            value={formData.courseCode}
+            onChange={handleChange}
+            disabled={isSaving}
+            className="w-full min-w-0 min-h-[44px] rounded-lg box-border uppercase"
+            wrapperClassName="w-full min-w-0"
+          />
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6">
-          {errorMsg && (
-            <div className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm flex items-start gap-3">
-              <span className="material-symbols-outlined text-[20px] shrink-0">error</span>
-              <p>{errorMsg}</p>
-            </div>
-          )}
+        <div className="space-y-1.5 w-full min-w-0 box-border">
+          <label htmlFor="credits" className="font-label-md text-sm font-medium text-[var(--color-on-surface)]">
+            Credits <span className="text-red-500">*</span>
+          </label>
+          <Input 
+            id="credits"
+            name="credits"
+            type="number"
+            min="1"
+            max="12"
+            value={formData.credits}
+            onChange={handleChange}
+            disabled={isSaving}
+            className="w-full min-w-0 min-h-[44px] rounded-lg box-border"
+            wrapperClassName="w-full min-w-0"
+          />
+        </div>
 
-          <div className="space-y-5">
-            <div className="grid grid-cols-2 gap-5">
-              <div className="space-y-1.5">
-                <label htmlFor="course_code" className="font-label-md text-sm font-medium text-[var(--color-on-surface)]">
-                  Course Code <span className="text-red-500">*</span>
-                </label>
-                <Input 
-                  id="course_code"
-                  placeholder="CS101"
-                  value={formData.course_code}
-                  onChange={handleChange}
-                  disabled={isSaving}
-                />
-              </div>
-              <div className="space-y-1.5">
-                <label htmlFor="credits" className="font-label-md text-sm font-medium text-[var(--color-on-surface)]">
-                  Credits <span className="text-red-500">*</span>
-                </label>
-                <Input 
-                  id="credits"
-                  type="number"
-                  min="1"
-                  max="12"
-                  value={formData.credits}
-                  onChange={handleChange}
-                  disabled={isSaving}
-                />
-              </div>
-            </div>
+        <div className="space-y-1.5 md:col-span-2 w-full min-w-0 box-border">
+          <label htmlFor="courseName" className="font-label-md text-sm font-medium text-[var(--color-on-surface)]">
+            Course Name <span className="text-red-500">*</span>
+          </label>
+          <Input 
+            id="courseName"
+            name="courseName"
+            placeholder="Introduction to Computer Science"
+            value={formData.courseName}
+            onChange={handleChange}
+            disabled={isSaving}
+            className="w-full min-w-0 min-h-[44px] rounded-lg box-border"
+            wrapperClassName="w-full min-w-0"
+          />
+        </div>
 
-            <div className="space-y-1.5">
-              <label htmlFor="course_name" className="font-label-md text-sm font-medium text-[var(--color-on-surface)]">
-                Course Name <span className="text-red-500">*</span>
-              </label>
-              <Input 
-                id="course_name"
-                placeholder="Introduction to Computer Science"
-                value={formData.course_name}
-                onChange={handleChange}
-                disabled={isSaving}
-              />
-            </div>
+        <div className="space-y-1.5 flex flex-col md:col-span-2 w-full min-w-0 box-border">
+          <label htmlFor="description" className="font-label-md text-sm font-medium text-[var(--color-on-surface)]">
+            Description
+          </label>
+          <textarea
+            id="description"
+            name="description"
+            className="flex w-full min-w-0 rounded-lg border border-[var(--color-outline-variant)] bg-[var(--color-surface-container-lowest)] px-3 py-3 text-sm text-[var(--color-on-surface)] transition-colors placeholder:text-[var(--color-on-surface-variant)] focus-visible:border-[var(--color-primary)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-primary)] disabled:cursor-not-allowed disabled:opacity-50 box-border min-h-[100px] resize-y"
+            placeholder="Brief course description..."
+            value={formData.description}
+            onChange={handleChange}
+            disabled={isSaving}
+            rows={4}
+          />
+        </div>
 
-            <div className="space-y-1.5">
-              <label htmlFor="description" className="font-label-md text-sm font-medium text-[var(--color-on-surface)]">
-                Description
-              </label>
-              <textarea
-                id="description"
-                className="w-full rounded-lg border border-[var(--color-outline-variant)] bg-[var(--color-surface)] px-4 py-3 text-sm text-[var(--color-on-surface)] placeholder:text-[var(--color-on-surface-variant)]/60 focus:border-[var(--color-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)] transition-all resize-y min-h-[100px]"
-                placeholder="Brief course description..."
-                value={formData.description}
-                onChange={handleChange}
-                disabled={isSaving}
-              />
-            </div>
+        <div className="space-y-1.5 flex flex-col w-full min-w-0 box-border">
+          <label className="font-label-md text-sm font-medium text-[var(--color-on-surface)]">
+            Semester <span className="text-red-500">*</span>
+          </label>
+          <Select 
+            id="semester"
+            name="semester"
+            value={formData.semester} 
+            onChange={handleSelectChange}
+            disabled={isSaving}
+            className="w-full min-w-0"
+          >
+            <option value="">Select Semester</option>
+            <option value="fall-2025">Fall 2025</option>
+            <option value="spring-2025">Spring 2025</option>
+          </Select>
+        </div>
 
-            <div className="grid grid-cols-2 gap-5">
-              <div className="space-y-1.5 flex flex-col">
-                <label className="font-label-md text-sm font-medium text-[var(--color-on-surface)]">
-                  Semester <span className="text-red-500">*</span>
-                </label>
-                <Select 
-                  options={semesterOptions} 
-                  value={formData.semester} 
-                  onChange={(val) => handleSelectChange('semester', val)}
-                  disabled={isSaving}
-                />
-              </div>
-              <div className="space-y-1.5 flex flex-col">
-                <label className="font-label-md text-sm font-medium text-[var(--color-on-surface)]">
-                  Status <span className="text-red-500">*</span>
-                </label>
-                <Select 
-                  options={statusOptions} 
-                  value={formData.status} 
-                  onChange={(val) => handleSelectChange('status', val)}
-                  disabled={isSaving}
-                />
-              </div>
-            </div>
+        <div className="space-y-1.5 flex flex-col w-full min-w-0 box-border">
+          <label className="font-label-md text-sm font-medium text-[var(--color-on-surface)]">
+            Status <span className="text-red-500">*</span>
+          </label>
+          <Select 
+            id="status"
+            name="status"
+            value={formData.status} 
+            onChange={handleSelectChange}
+            disabled={isSaving}
+            className="w-full min-w-0"
+          >
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+            <option value="archived">Archived</option>
+          </Select>
+        </div>
 
-            {!isLecturer && (
-              <div className="space-y-1.5 flex flex-col">
-                <label className="font-label-md text-sm font-medium text-[var(--color-on-surface)]">
-                  Assigned Lecturer
-                </label>
-                <Select 
-                  options={lecturerOptions} 
-                  value={formData.lecturer_id} 
-                  onChange={(val) => handleSelectChange('lecturer_id', val)}
-                  disabled={isSaving}
-                />
-              </div>
-            )}
-          </div>
-
-          <div className="mt-8 pt-5 border-t border-[var(--color-outline-variant)] flex items-center justify-end gap-3 sticky bottom-0 bg-[var(--color-surface-container-lowest)] z-10">
-            <Button 
-              type="button" 
-              variant="outline" 
-              onClick={onClose}
+        {currentRole !== 'lecturer' && (
+          <div className="space-y-1.5 flex flex-col md:col-span-2 w-full min-w-0 box-border">
+            <label className="font-label-md text-sm font-medium text-[var(--color-on-surface)]">
+              Assigned Lecturer
+            </label>
+            <Select 
+              id="lecturerId"
+              name="lecturerId"
+              value={formData.lecturerId} 
+              onChange={handleSelectChange}
               disabled={isSaving}
+              className="w-full min-w-0"
             >
-              Cancel
-            </Button>
-            <Button 
-              type="submit"
-              disabled={isSaving}
-            >
-              {isSaving ? 'Saving...' : 'Save Course'}
-            </Button>
+              <option value="">Unassigned</option>
+              {lecturers.map(l => (
+                <option key={l.id} value={l.id}>{l.full_name}</option>
+              ))}
+            </Select>
           </div>
-        </form>
+        )}
       </div>
-    </div>
+
+      <div className="mt-6 flex w-full flex-col-reverse gap-3 border-t border-[var(--color-divider)] pt-5 sm:flex-row sm:justify-end box-border">
+        <Button 
+          type="button" 
+          variant="outline" 
+          onClick={onCancel}
+          disabled={isSaving}
+        >
+          Cancel
+        </Button>
+        <Button 
+          type="submit"
+          disabled={isSaving}
+        >
+          {isSaving ? 'Saving...' : 'Save Course'}
+        </Button>
+      </div>
+    </form>
   );
 }

@@ -1,25 +1,36 @@
 import { Input } from '../../../components/ui/Input';
 import { Select } from '../../../components/ui/Select';
 
-const courseOptions = [
-  { value: '', label: 'All Courses' },
-];
+export function AssignmentToolbar({
+  searchQuery,
+  setSearchQuery,
+  courseFilter,
+  setCourseFilter,
+  statusFilter,
+  setStatusFilter,
+  uniqueCourses = [],
+  showDrafts = true,
+}) {
+  const courseOptions = [
+    { value: '', label: 'All Courses' },
+    ...uniqueCourses.map(c => ({ value: c.id, label: `${c.code} - ${c.name}` }))
+  ];
 
-const statusOptions = [
-  { value: '', label: 'All Status' },
-  { value: 'draft', label: 'Draft' },
-  { value: 'published', label: 'Published' },
-  { value: 'closed', label: 'Closed' },
-];
+  const statusOptions = [
+    { value: '', label: 'All Status' },
+    ...(showDrafts ? [{ value: 'draft', label: 'Draft' }] : []),
+    { value: 'published', label: 'Published' },
+    { value: 'closed', label: 'Closed' },
+  ];
 
-const dueDateOptions = [
-  { value: '', label: 'Any Due Date' },
-  { value: 'today', label: 'Due Today' },
-  { value: 'week', label: 'Due This Week' },
-  { value: 'overdue', label: 'Overdue' },
-];
+  const handleReset = () => {
+    setSearchQuery('');
+    setCourseFilter('');
+    setStatusFilter('');
+  };
 
-export function AssignmentToolbar() {
+  const isFiltered = searchQuery || courseFilter || statusFilter;
+
   return (
     <div className="bg-[var(--color-surface-container-lowest)] border border-[var(--color-outline-variant)] rounded-xl ambient-shadow p-4 mb-6">
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
@@ -28,23 +39,38 @@ export function AssignmentToolbar() {
           <Input
             id="assignment-search"
             icon="search"
-            placeholder="Search by title or course…"
+            placeholder="Search by title, course..."
             className="h-9 text-sm"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
         <div className="flex flex-wrap items-center gap-3 flex-shrink-0">
           <label htmlFor="assignment-course" className="sr-only">Filter by course</label>
-          <Select id="assignment-course" options={courseOptions} className="text-sm min-w-[140px]" />
+          <Select 
+            id="assignment-course" 
+            options={courseOptions} 
+            className="text-sm min-w-[140px]" 
+            value={courseFilter}
+            onChange={(e) => setCourseFilter(e.target.value)}
+          />
           <label htmlFor="assignment-status" className="sr-only">Filter by status</label>
-          <Select id="assignment-status" options={statusOptions} className="text-sm min-w-[120px]" />
-          <label htmlFor="assignment-due" className="sr-only">Filter by due date</label>
-          <Select id="assignment-due" options={dueDateOptions} className="text-sm min-w-[140px]" />
-          <button
-            type="button"
-            className="text-xs font-medium text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors whitespace-nowrap px-2"
-          >
-            Reset
-          </button>
+          <Select 
+            id="assignment-status" 
+            options={statusOptions} 
+            className="text-sm min-w-[120px]" 
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+          />
+          {isFiltered && (
+            <button
+              type="button"
+              onClick={handleReset}
+              className="text-xs font-medium text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors whitespace-nowrap px-2"
+            >
+              Clear
+            </button>
+          )}
         </div>
       </div>
     </div>
