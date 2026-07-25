@@ -10,26 +10,59 @@ const semesterOptions = [
 const statusOptions = [
   { value: '', label: 'All Status' },
   { value: 'active', label: 'Active' },
+  { value: 'inactive', label: 'Inactive' },
   { value: 'archived', label: 'Archived' },
 ];
 
-export function CourseToolbar() {
+export function CourseToolbar({ 
+  searchQuery, 
+  setSearchQuery, 
+  semesterFilter, 
+  setSemesterFilter, 
+  statusFilter, 
+  setStatusFilter 
+}) {
+  const handleReset = () => {
+    setSearchQuery('');
+    setSemesterFilter('');
+    setStatusFilter('');
+  };
+
+  const hasActiveFilters = searchQuery !== '' || semesterFilter !== '' || statusFilter !== '';
+
   return (
     <div className="bg-[var(--color-surface-container-lowest)] border border-[var(--color-outline-variant)] rounded-xl ambient-shadow p-4 mb-6">
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
         <div className="flex-1 min-w-0">
           <Input 
             icon="search" 
-            placeholder="Search courses by name or code…"
+            placeholder="Search courses by name, code or lecturer…"
             className="h-9 text-sm"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
         <div className="flex items-center gap-3 flex-shrink-0">
-          <Select options={semesterOptions} className="text-sm min-w-[140px]" />
-          <Select options={statusOptions} className="text-sm min-w-[120px]" />
-          <button className="text-xs font-medium text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors whitespace-nowrap px-2">
-            Reset
-          </button>
+          <Select 
+            options={semesterOptions} 
+            className="text-sm min-w-[140px]" 
+            value={semesterFilter}
+            onChange={setSemesterFilter}
+          />
+          <Select 
+            options={statusOptions} 
+            className="text-sm min-w-[120px]" 
+            value={statusFilter}
+            onChange={setStatusFilter}
+          />
+          {hasActiveFilters && (
+            <button 
+              onClick={handleReset}
+              className="text-xs font-medium text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] transition-colors whitespace-nowrap px-2"
+            >
+              Reset
+            </button>
+          )}
         </div>
       </div>
     </div>
