@@ -1,15 +1,29 @@
-export function GradesEmptyState({ message = 'Select a course and assignment to manage grades.', detail = 'Student grade records will appear after an assignment is selected.' }) {
+import { EmptyState } from '../../../components/feedback/EmptyState';
+
+export function GradesEmptyState({ role, searchTerm, courseFilter, assignmentFilter }) {
+  const isLecturer = role === 'lecturer';
+  
+  const hasFilters = Boolean(searchTerm || courseFilter || assignmentFilter);
+
+  const icon = isLecturer ? (hasFilters ? 'search_off' : 'assignment_turned_in') : 'school';
+  const title = isLecturer 
+    ? (hasFilters ? 'No Submissions Found' : 'No Submissions to Grade') 
+    : 'No Grades Available';
+  
+  const description = isLecturer
+    ? (hasFilters 
+        ? 'Try adjusting your filters or search terms to find what you are looking for.' 
+        : 'You have no student submissions across your active courses yet.')
+    : 'You do not have any published grades yet. Grades will appear here once your lecturer publishes them.';
+
   return (
-    <div className="py-16 flex flex-col items-center justify-center text-center gap-2">
-      <span className="material-symbols-outlined text-[28px] text-[var(--color-outline)] opacity-50 mb-1" aria-hidden="true">
-        grade
-      </span>
-      <p className="font-body-md text-sm font-medium text-[var(--color-on-surface-variant)]">
-        {message}
-      </p>
-      <p className="font-body-sm text-xs text-[var(--color-outline)]">
-        {detail}
-      </p>
+    <div className="w-full min-w-0 box-border bg-[var(--color-surface-container-lowest)] rounded-xl">
+      <EmptyState
+        icon={icon}
+        title={title}
+        description={description}
+        className="border-none"
+      />
     </div>
   );
 }

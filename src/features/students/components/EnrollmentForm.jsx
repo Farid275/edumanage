@@ -57,56 +57,56 @@ export function EnrollmentForm({ studentId, availableCourses, enrollments, onSav
   ];
 
   return (
-    <form onSubmit={handleSubmit} className="bg-[var(--color-surface-container)] rounded-lg p-5 mb-6 border border-[var(--color-outline-variant)]/50 animate-fade-in-up w-full min-w-0">
+    <form onSubmit={handleSubmit} className="bg-[var(--color-surface-container)] rounded-lg p-5 mb-6 border border-[var(--color-outline-variant)]/50 w-full min-w-0 box-border">
       <h4 className="font-title-sm text-sm text-[var(--color-on-surface)] mb-4">Add Course Enrollment</h4>
       
       {errorMsg && (
-        <div className="mb-4 p-3 rounded-md bg-red-50 text-red-700 text-xs border border-red-200 w-full">
+        <div className="mb-4 p-3 rounded-md bg-red-50 text-red-700 text-xs border border-red-200 w-full box-border">
           {errorMsg}
         </div>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-start w-full min-w-0">
-        <div className="sm:col-span-7 w-full min-w-0">
+      <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-start w-full min-w-0 box-border">
+        <div className="sm:col-span-7 w-full min-w-0 box-border">
           <label className="sr-only">Course</label>
-          <div className="w-full min-w-0">
+          <div className="w-full min-w-0 box-border">
             <Select 
               options={courseOptions} 
               value={formData.course_id}
-              onChange={(val) => handleSelectChange('course_id', val)}
+              onChange={(e) => handleSelectChange('course_id', e.target.value)}
               disabled={isSaving}
-              className="w-full min-h-[44px] rounded-lg"
+              className="w-full min-h-[44px] rounded-lg box-border"
             />
           </div>
         </div>
-        <div className="sm:col-span-5 w-full min-w-0">
+        <div className="sm:col-span-5 w-full min-w-0 box-border">
           <label className="sr-only">Status</label>
-          <div className="w-full min-w-0">
+          <div className="w-full min-w-0 box-border">
             <Select 
               options={statusOptions} 
               value={formData.status}
-              onChange={(val) => handleSelectChange('status', val)}
+              onChange={(e) => handleSelectChange('status', e.target.value)}
               disabled={isSaving}
-              className="w-full min-h-[44px] rounded-lg"
+              className="w-full min-h-[44px] rounded-lg box-border"
             />
           </div>
         </div>
       </div>
       
-      <div className="mt-5 flex items-center justify-end gap-3 w-full">
+      <div className="mt-5 flex flex-col-reverse sm:flex-row sm:items-center justify-end gap-3 w-full min-w-0 box-border border-t border-[var(--color-divider)] pt-5">
         <Button 
           type="button" 
           variant="outline" 
           onClick={onCancel}
           disabled={isSaving}
-          className="min-w-fit"
+          className="w-full sm:w-auto min-w-0"
         >
           Cancel
         </Button>
         <Button 
           type="submit"
           disabled={isSaving || enrollableCourses.length === 0}
-          className="min-w-fit"
+          className="w-full sm:w-auto min-w-0"
         >
           {isSaving ? 'Enrolling...' : 'Enroll Student'}
         </Button>

@@ -26,7 +26,26 @@ export function useAssignments() {
     setError(null);
     try {
       const { data } = await getAssignments();
-      setAssignments(data || []);
+      let fetchedAssignments = data || [];
+
+      if (role === 'student' && user?.id && fetchedAssignments.length > 0) {
+        const { getStudentSubmissions } = await import('../../submissions/api/submissionsApi');
+        const assignmentIds = fetchedAssignments.map(a => a.id);
+        const { data: submissions } = await getStudentSubmissions(assignmentIds, user.id);
+        
+        if (submissions) {
+          const submissionByAssignmentId = new Map(
+            submissions.map((sub) => [sub.assignment_id, sub])
+          );
+          
+          fetchedAssignments = fetchedAssignments.map(a => ({
+            ...a,
+            submission: submissionByAssignmentId.get(a.id) ?? null
+          }));
+        }
+      }
+
+      setAssignments(fetchedAssignments);
     } catch (err) {
       setError('Assignments could not be loaded. Please try again.');
     } finally {

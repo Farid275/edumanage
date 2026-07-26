@@ -7,12 +7,26 @@ import { AssignmentsTable } from '../components/AssignmentsTable';
 import { AssignmentFormModal } from '../components/AssignmentFormModal';
 import { AssignmentDetailsModal } from '../components/AssignmentDetailsModal';
 import { DeleteAssignmentDialog } from '../components/DeleteAssignmentDialog';
+import { SubmissionFormModal } from '../../submissions/components/SubmissionFormModal';
 import { useAssignments } from '../hooks/useAssignments';
+import { useSubmission } from '../../submissions/hooks/useSubmission';
 import { useAuth } from '../../auth/context/AuthContext';
 
 export function AssignmentsPage() {
-  const { role } = useAuth();
+  const { role, user } = useAuth();
   const isLecturer = role === 'lecturer';
+
+  // Modal states
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isSubmissionFormOpen, setIsSubmissionFormOpen] = useState(false);
+  
+  const [formMode, setFormMode] = useState('create');
+  const [selectedAssignment, setSelectedAssignment] = useState(null);
+  const [selectedSubmission, setSelectedSubmission] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const [formError, setFormError] = useState(null);
 
   const {
     assignments,
@@ -27,18 +41,14 @@ export function AssignmentsPage() {
     setStatusFilter,
     handleCreate,
     handleUpdate,
-    handleDelete
+    handleDelete,
+    refreshData
   } = useAssignments();
 
-  // Modal states
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  
-  const [formMode, setFormMode] = useState('create');
-  const [selectedAssignment, setSelectedAssignment] = useState(null);
-  const [isSaving, setIsSaving] = useState(false);
-  const [formError, setFormError] = useState(null);
+  const { submitWork } = useSubmission(
+    isSubmissionFormOpen || isDetailsOpen ? selectedAssignment?.id : null,
+    user?.id
+  );
 
   // Derived state for Toolbar
   const uniqueCoursesMap = new Map();
@@ -79,6 +89,20 @@ export function AssignmentsPage() {
     setIsDeleteDialogOpen(true);
   };
 
+  const openSubmitModal = (assignment) => {
+    setSelectedAssignment(assignment);
+    setSelectedSubmission(null);
+    setFormError(null);
+    setIsSubmissionFormOpen(true);
+  };
+
+  const openUpdateSubmissionModal = (assignment) => {
+    setSelectedAssignment(assignment);
+    setSelectedSubmission(assignment.submission);
+    setFormError(null);
+    setIsSubmissionFormOpen(true);
+  };
+
   const onFormSubmit = async (payload) => {
     setIsSaving(true);
     setFormError(null);
@@ -96,6 +120,29 @@ export function AssignmentsPage() {
       setFormError(res.error);
     } else {
       setIsFormOpen(false);
+    }
+  };
+
+  const handleSaveSubmission = async (textContent, selectedFile) => {
+    setIsSaving(true);
+    setFormError(null);
+
+    const { error: submitError } = await submitWork({
+      assignmentId: selectedAssignment.id,
+      studentId: user?.id,
+      textContent,
+      selectedFile,
+      existingSubmission: selectedSubmission
+    });
+    
+    setIsSaving(false);
+    
+    if (submitError) {
+      setFormError(submitError);
+    } else {
+      setIsSubmissionFormOpen(false);
+      // Refresh assignments to get the latest submission
+      await refreshData();
     }
   };
 
@@ -153,6 +200,8 @@ export function AssignmentsPage() {
               onEdit={openEditModal}
               onDelete={openDeleteModal}
               onViewDetails={openDetailsModal}
+              onSubmitAssignment={openSubmitModal}
+              onUpdateSubmission={openUpdateSubmissionModal}
             />
           )}
         </>
@@ -174,6 +223,8 @@ export function AssignmentsPage() {
         isOpen={isDetailsOpen}
         assignment={selectedAssignment}
         onClose={() => setIsDetailsOpen(false)}
+        onSubmitAssignment={openSubmitModal}
+        onUpdateSubmission={openUpdateSubmissionModal}
       />
 
       <DeleteAssignmentDialog 
@@ -181,6 +232,18 @@ export function AssignmentsPage() {
         onClose={() => setIsDeleteDialogOpen(false)}
         onConfirm={handleDelete}
       />
+      
+      {!isLecturer && (
+        <SubmissionFormModal
+          isOpen={isSubmissionFormOpen}
+          assignment={selectedAssignment}
+          existingSubmission={selectedSubmission}
+          isSaving={isSaving}
+          error={formError}
+          onSubmit={handleSaveSubmission}
+          onClose={() => setIsSubmissionFormOpen(false)}
+        />
+      )}
     </div>
   );
 }
